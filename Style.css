@@ -1,0 +1,44 @@
+body
+{
+
+	background-color: wheat;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+
+#container {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+}
+
+input, button
+{
+	/*
+	text-align: center;
+	margin-top: 100px;
+	margin-left: 400px;
+	*/
+	background-color: rgb(116, 0, 10);
+	color: wheat;
+	/*	height: 40px;*/
+	font-size: 30px;
+}
+
+#output
+{
+	font-size: 30px;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	margin: 10px 0;
+}
+h1
+{
+	margin-left: 50px;
+	font-size: 70px;
+	text-align: center;
+	padding-top: 60px;
+	color:rgb(116, 0, 10);
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
