@@ -64,17 +64,15 @@ async function processRow(row){
 }
 
 function download(filename, text) {
-	var button = document.getElementsByClassName("widget-form-button-wrapper")[0]
-	var element = button.getElementsByTagName("a")[0]
-	// var element = document.createElement('a');
+	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(text));
 	element.setAttribute('download', filename);
-	// var button = document.createElement('button');
-	// button.setAttribute('type', 'button');
-	// textNode = document.createTextNode(downloadText);
-	// button.appendChild(textNode);
-	// element.appendChild(button);
-	// document.getElementById("container").appendChild(element);
+	var button = document.createElement('button');
+	button.setAttribute('type', 'button');
+	textNode = document.createTextNode(downloadText);
+	button.appendChild(textNode);
+	element.appendChild(button);
+	document.getElementById("container").appendChild(element);
 }
 
 fr.onload = async function(){ 
