@@ -1,9 +1,12 @@
 body
 {
 
+/*
 	background-color: wheat;
 	background-repeat: no-repeat;
 	background-size: 100%;
+*/
+	background-image: url(background.jpg);
 }
 
 
@@ -31,6 +34,7 @@ input, button
 	font-size: 30px;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	margin: 10px 0;
+  color: aliceblue;
 }
 h1
 {
@@ -38,7 +42,7 @@ h1
 	font-size: 70px;
 	text-align: center;
 	padding-top: 60px;
-	color:rgb(116, 0, 10);
+	color:rgb(226 70 84);
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 }
