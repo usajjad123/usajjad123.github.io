@@ -2,7 +2,7 @@
 <html>
 
 	<head>
-		<link rel="stylesheet" href="Style.css">
+		<link rel="stylesheet" href="style.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	</head>
 	<body> 
@@ -11,7 +11,12 @@
 			<h1>LIST FORMATTER TOOL</h1>
 			<input type="file" name="inputfile"
 						 id="inputfile" onclick="this.value = null">
-			<pre id="output"></pre> 
+			<select id="format-selector">
+				<option value="1">Diamond Seller</option>
+				<option value="2">Other Seller</option>
+			</select>
+			<button id="convert">Start Conversion</button>
+			<pre id="output"></pre>
 		</div>
 		<script src="functions.js" ></script>
 	</body> 

@@ -16,19 +16,21 @@ body
 	flex-direction: column;
 }
 
-input, button
+input, button, select
 {
-	/*
+	
 	text-align: center;
-	margin-top: 100px;
-	margin-left: 400px;
-	*/
+	
 	background-color: rgb(116, 0, 10);
 	color: wheat;
 	/*	height: 40px;*/
 	font-size: 30px;
+	margin: 10px;
 }
 
+select, #convert {
+	width: 20%;
+}
 #output
 {
 	font-size: 30px;
