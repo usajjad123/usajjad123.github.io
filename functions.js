@@ -33,31 +33,36 @@ async function processLink(targetUrl) {
     .then((data) => {
       window.doc = parser.parseFromString(data, "text/html");
       try {
-        imgSrcRel = $(doc).find("#MainContentImage").attr("src");
+//        imgSrcRel = $(doc).find("#MainContentImage").attr("src");
         //			desc = $(doc).find(".Text")[0].childNodes[4].textContent.trim().replace(",", "-");
         desc = $(doc).find(".Text")[0];
         desc.children.forEach((e) => {
           e.decompose();
         });
         desc = desc.text.trim().replace(",", "-");
-        imgUrl = `${prefix}${imgSrcRel}`;
+//        imgUrl = `${prefix}${imgSrcRel}`;
+				
+      return desc;
       } catch (e) {
-        desc = "";
-        imgUrl = coverNotFound;
+//        desc = "";
+//        imgUrl = coverNotFound;
         console.log(e);
       }
-      return [imgUrl, desc];
     })
     .catch((e) => {
       console.log(e);
-      return ["", ""];
     });
 }
 
 async function processRow(row) {
   if (row.DIAMD_NO) {
     url = `${prefix}/Catalog/${row.DIAMD_NO}`;
-    [row.IMAGE_LINK, row.MAIN_DESC] = await processLink(url);
+		row.IMAGE_LINK = `${prefix}/SiteImage/MainImage/${row.STOCK_NO}`;
+//    [row.IMAGE_LINK, row.MAIN_DESC] = await processLink(url);
+    const desc = await processLink(url);
+		if (desc){
+			row.MAIN_DESC = desc;
+		}
     const rowElem = Object.values(column_map).map((prop) => row[prop]);
     console.log(rowElem);
     const rowText =
