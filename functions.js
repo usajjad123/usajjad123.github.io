@@ -1,15 +1,17 @@
 var column_map = {
-    sku: "STOCK_NO",
-    name: "FULL_TITLE",
-    description: "MAIN_DESC",
-    image: "IMAGE_LINK",
-    price: "SRP",
-    brand: "PUBLISHER",
-    weight: "UNIT_WEIGHT",
-    length: "UNIT_LENGTH",
-    width: "UNIT_WIDTH",
-    height: "UNIT_HEIGHT",
-  },
+  sku: "STOCK_NO",
+  name: "FULL_TITLE",
+  description: "MAIN_DESC",
+  image: "IMAGE_LINK",
+  price: "SRP",
+  // brand: "PUBLISHER",
+  "Category 1": "PUBLISHER",
+  "Category 2": "RELEASE_DATE",
+  weight: "UNIT_WEIGHT",
+  length: "UNIT_LENGTH",
+  width: "UNIT_WIDTH",
+  height: "UNIT_HEIGHT",
+},
   proxyUrl = "https://cors-anywhere.herokuapp.com/",
   parser = new DOMParser(),
   fr = new FileReader(),
@@ -32,22 +34,36 @@ async function processLink(targetUrl) {
     .then((blob) => blob.text())
     .then((data) => {
       window.doc = parser.parseFromString(data, "text/html");
+      var desc = "", rel_date = "";
       try {
-//        imgSrcRel = $(doc).find("#MainContentImage").attr("src");
+        //        imgSrcRel = $(doc).find("#MainContentImage").attr("src");
         //			desc = $(doc).find(".Text")[0].childNodes[4].textContent.trim().replace(",", "-");
-        desc = $(doc).find(".Text")[0];
-        desc.children.forEach((e) => {
-          e.decompose();
-        });
-        desc = desc.text.trim().replace(",", "-");
-//        imgUrl = `${prefix}${imgSrcRel}`;
-				
-      return desc;
+        debugger;
+        rel_date = $(doc).find(".ReleaseDate");
+        desc = $(doc).find(".Text");
+        // desc = $(doc).find(".Text")[0];
+        // desc.children.forEach((e) => {
+        //   e.decompose();
+        // });
+        // desc = desc.text.trim().replace(",", "-");
+        // desc = desc.text().trim().replace(",", "-").split("\n")[2].trim()
+        desc = desc && desc
+          .clone()    //clone the element
+          .children() //select all the children
+          .remove()   //remove all the children
+          .end()  //again go back to selected element
+          .text()
+          .trim()
+          .replace(",", "-");
+        rel_date = rel_date && rel_date.text().split(":")[1];
+        //        imgUrl = `${prefix}${imgSrcRel}`;
+
       } catch (e) {
-//        desc = "";
-//        imgUrl = coverNotFound;
+        //        desc = "";
+        //        imgUrl = coverNotFound;
         console.log(e);
       }
+      return { desc, rel_date };
     })
     .catch((e) => {
       console.log(e);
@@ -57,12 +73,13 @@ async function processLink(targetUrl) {
 async function processRow(row) {
   if (row.DIAMD_NO) {
     url = `${prefix}/Catalog/${row.DIAMD_NO}`;
-		row.IMAGE_LINK = `${prefix}/SiteImage/MainImage/${row.STOCK_NO}`;
-//    [row.IMAGE_LINK, row.MAIN_DESC] = await processLink(url);
-    const desc = await processLink(url);
-		if (desc){
-			row.MAIN_DESC = desc;
-		}
+    row.IMAGE_LINK = `${prefix}/SiteImage/MainImage/${row.STOCK_NO}`;
+    //    [row.IMAGE_LINK, row.MAIN_DESC] = await processLink(url);
+    const { desc, rel_date } = await processLink(url);
+    if (desc) {
+      row.MAIN_DESC = desc;
+    }
+    row.RELEASE_DATE = rel_date;
     const rowElem = Object.values(column_map).map((prop) => row[prop]);
     console.log(rowElem);
     const rowText =
