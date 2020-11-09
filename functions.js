@@ -54,7 +54,7 @@ async function processLink(targetUrl) {
           .end()  //again go back to selected element
           .text()
           .trim()
-          .replace(",", "-");
+          .replace(/,/g, "-");
         rel_date = rel_date && rel_date.text().split(":")[1];
         //        imgUrl = `${prefix}${imgSrcRel}`;
 
