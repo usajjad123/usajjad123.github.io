@@ -43,7 +43,7 @@ Qureos is a hiring platform. I worked on candidate sourcing, AI-assisted screeni
 
 ### Screenshots
 
-The Qureos product requires login. Add these images to an `assets/` folder when publishing this page:
+The Qureos product requires login. Attached screenshots of the working product below:
 
 ![Candidate sourcing workflow](assets/qureos-candidate-sourcing.png)
 
